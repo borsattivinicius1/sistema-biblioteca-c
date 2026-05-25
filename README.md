@@ -1,7 +1,7 @@
 ````md
 # 📚 Sistema de Biblioteca em C
 
-Projeto desenvolvido para a disciplina de Estrutura de Dados I utilizando linguagem C, PostgreSQL e estruturas de dados clássicas.
+Projeto desenvolvido para a disciplina de Estrutura de Dados I utilizando linguagem C.
 
 ---
 
