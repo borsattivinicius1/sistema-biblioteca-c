@@ -10,10 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  user: "postgres",
+  user: "biblioteca_user",
   host: "localhost",
   database: "biblioteca_db",
-  password: "",
+  password: "123456",
   port: 5432,
 });
 
