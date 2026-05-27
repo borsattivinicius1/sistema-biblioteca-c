@@ -265,7 +265,7 @@ gcc src/*.c -Iinclude -I/usr/include/postgresql -lpq -o biblioteca
 
 Projeto desenvolvido por:
 
-* Vinicius
+* Vinicius * Maria * Nicole
 
 ```
 ```
