@@ -1,0 +1,19 @@
+# Node
+node_modules/
+
+# Build
+dist/
+build/
+
+# Executáveis C
+*.exe
+biblioteca
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# Sistema
+.DS_Store
