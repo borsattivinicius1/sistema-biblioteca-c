@@ -20,7 +20,7 @@ import {
   Menu,
 } from "lucide-react";
 
-const API_URL = "https://ubiquitous-spoon-r4q44q5v4w56fpq94-3001.app.github.dev/";
+const API_URL = "https://ubiquitous-spoon-r4q44q5v4w56fpq94-3001.app.github.dev";
 
 export default function Dashboard({ usuario, onLogout }) {
   const [active, setActive] = useState("Dashboard");
