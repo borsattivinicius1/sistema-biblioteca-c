@@ -1,8 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const app = express();
+const JWT_SECRET = "biblioteca_secreta";
 app.use(cors());
 app.use(express.json());
 
@@ -115,6 +118,67 @@ app.put("/emprestimos/:id/devolver", async (req, res) => {
   );
 
   res.json({ message: "Livro devolvido com sucesso" });
+});
+
+
+
+app.post("/admin/cadastrar", async (req, res) => {
+  try {
+    const { nome, email, senha } = req.body;
+
+    const senhaHash = await bcrypt.hash(senha, 10);
+
+    await pool.query(
+      "INSERT INTO administradores (nome, email, senha_hash) VALUES ($1, $2, $3)",
+      [nome, email, senhaHash]
+    );
+
+    res.json({ message: "Administrador cadastrado com sucesso" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Erro ao cadastrar administrador" });
+  }
+});
+
+app.post("/login", async (req, res) => {
+  try {
+    const { email, senha } = req.body;
+
+    const result = await pool.query(
+      "SELECT * FROM administradores WHERE email = $1",
+      [email]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(401).json({ message: "E-mail ou senha inválidos" });
+    }
+
+    const admin = result.rows[0];
+    const senhaValida = await bcrypt.compare(senha, admin.senha_hash);
+
+    if (!senhaValida) {
+      return res.status(401).json({ message: "E-mail ou senha inválidos" });
+    }
+
+    const token = jwt.sign(
+      { id: admin.id, nome: admin.nome, email: admin.email },
+      JWT_SECRET,
+      { expiresIn: "2h" }
+    );
+
+    res.json({
+      message: "Login realizado com sucesso",
+      token,
+      usuario: {
+        id: admin.id,
+        nome: admin.nome,
+        email: admin.email,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Erro ao realizar login" });
+  }
 });
 
 app.listen(3001, () => {
