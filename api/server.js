@@ -6,7 +6,14 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 const JWT_SECRET = "biblioteca_secreta";
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://ubiquitous-spoon-r4q44q5v4w56fpq94-5173.app.github.dev"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(express.json());
 
 const pool = new Pool({
