@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const app = express();
-const JWT_SECRET = "biblioteca_secreta";
+const JWT_SECRET = process.env.JWT_SECRET || "biblioteca_secreta";
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -188,6 +188,12 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.listen(3001, () => {
-  console.log("API rodando em http://localhost:3001");
-});
+const PORT = process.env.PORT || 3001;
+
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`API rodando em http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
