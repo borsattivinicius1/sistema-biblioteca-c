@@ -3,6 +3,7 @@ const cors = require("cors");
 const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const app = express();
 const JWT_SECRET = "biblioteca_secreta";
@@ -17,11 +18,10 @@ app.use(cors({
 app.use(express.json());
 
 const pool = new Pool({
-  user: "biblioteca_user",
-  host: "localhost",
-  database: "biblioteca_db",
-  password: "123456",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 app.get("/livros", async (req, res) => {
