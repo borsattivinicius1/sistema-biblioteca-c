@@ -9,7 +9,7 @@ export default function Login({ onLogin }) {
   async function fazerLogin(e) {
     e.preventDefault();
 
-    const response = await fetch("https://ubiquitous-spoon-r4q44q5v4w56fpq94-3001.app.github.dev/login", {
+    const response = await fetch("https://sistema-biblioteca-c.vercel.app/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
