@@ -10,7 +10,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "biblioteca_secreta";
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://ubiquitous-spoon-r4q44q5v4w56fpq94-5173.app.github.dev"
+    "https://ubiquitous-spoon-r4q44q5v4w56fpq94-5173.app.github.dev",
+    "https://sistema-biblioteca-c-7djs.vercel.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
