@@ -5,10 +5,14 @@
 
 PGconn* conectarBanco() {
 
-    PGconn *conn = PQconnectdb(
-        "dbname=biblioteca_db "
-        "user=postgres"
-    );
+  PGconn *conn = PQconnectdb(
+    "host=aws-1-us-west-2.pooler.supabase.com "
+    "port=6543 "
+    "dbname=postgres "
+    "user=postgres.cnwkpajfoepdbhgqnhhu "
+    "password=V!n1c1u$#Sup4B4s3_2026@DB "
+    "sslmode=require"
+);
 
     if(PQstatus(conn) != CONNECTION_OK) {
         printf("Erro na conexao: %s\n", PQerrorMessage(conn));
