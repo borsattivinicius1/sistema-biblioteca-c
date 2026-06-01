@@ -42,8 +42,26 @@ app.post("/livros", async (req, res) => {
 });
 
 app.delete("/livros/:codigo", async (req, res) => {
-  await pool.query("DELETE FROM livros WHERE codigo = $1", [req.params.codigo]);
-  res.json({ message: "Livro removido com sucesso" });
+  try {
+    const { codigo } = req.params;
+
+    await pool.query("DELETE FROM emprestimos WHERE codigo_livro = $1", [codigo]);
+    await pool.query("DELETE FROM reservas WHERE codigo_livro = $1", [codigo]);
+
+    const result = await pool.query(
+      "DELETE FROM livros WHERE codigo = $1",
+      [codigo]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Livro não encontrado" });
+    }
+
+    res.json({ message: "Livro removido com sucesso" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Erro ao remover livro" });
+  }
 });
 
 app.get("/usuarios", async (req, res) => {
