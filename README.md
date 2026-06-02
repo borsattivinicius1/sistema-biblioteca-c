@@ -96,13 +96,5 @@ node server.js
 
 Vinicius, Maria e Nicole 
 
-````
 
-Depois faz:
-
-```bash
-git add README.md
-git commit -m "atualiza readme com instrucoes do projeto"
-git push
-````
 
